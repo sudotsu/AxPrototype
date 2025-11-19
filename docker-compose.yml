@@ -1,0 +1,86 @@
+version: "3.9"
+
+networks:
+  edge:
+    external: false
+
+volumes:
+  axp-ledger:
+  axp-logs:
+  sentinel-reports:
+
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    restart: always
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --api.dashboard=false
+      - --certificatesresolvers.le.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --serversTransport.insecureSkipVerify=true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ${ACME_FILE}:/letsencrypt/acme.json
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [edge]
+
+  axp:
+    build:
+      context: .
+      dockerfile: Dockerfile.axp
+    image: ${AXP_IMAGE}
+    container_name: axp
+    restart: always
+    env_file: [.env]
+    environment:
+      - TIER=${TIER}
+      - ENABLE_SIGNUP=${ENABLE_SIGNUP}
+      - FREE_TIER_LIMIT=${FREE_TIER_LIMIT}
+    volumes:
+      # Phase 1: Read/Write access for AxP App to append logs
+      - axp-ledger:/app/logs/ledger
+      - axp-logs:/app/logs/sessions
+    networks: [edge]
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.axp.rule=Host(`${DOMAIN_APP}`)
+      - traefik.http.routers.axp.entrypoints=websecure
+      - traefik.http.routers.axp.tls.certresolver=le
+      - traefik.http.services.axp.loadbalancer.server.port=8501
+      - traefik.http.middlewares.axp-rl.ratelimit.average=10
+      - traefik.http.middlewares.axp-rl.ratelimit.burst=20
+      - traefik.http.routers.axp.middlewares=axp-rl
+
+  sentinel:
+    build:
+      context: .
+      dockerfile: Dockerfile.sentinel
+    image: ${SENTINEL_IMAGE}
+    container_name: sentinel
+    restart: always
+    depends_on: [axp]
+    volumes:
+      # Phase 1: CRITICAL - Read-Only access to prevent Sentinel from altering history
+      # Sentinel monitors logs but cannot modify them (one-way flow: App -> Log -> Sentinel)
+      - axp-ledger:/audit/ledger:ro
+      - axp-logs:/audit/logs/sessions:ro
+      # Sentinel writes its own reports (separate volume)
+      - sentinel-reports:/audit/reports
+    networks: [edge]
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sentinel.rule=Host(`${DOMAIN_SENTINEL}`)
+      - traefik.http.routers.sentinel.entrypoints=websecure
+      - traefik.http.routers.sentinel.tls.certresolver=le
+      - traefik.http.services.sentinel.loadbalancer.server.port=8080
+      - traefik.http.middlewares.sentinel-rl.ratelimit.average=20
+      - traefik.http.middlewares.sentinel-rl.ratelimit.burst=40
+      - traefik.http.routers.sentinel.middlewares=sentinel-rl

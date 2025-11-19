@@ -1,0 +1,5 @@
+{
+  "smart_view": true,
+  "show_tables_by_default": false,
+  "table_thresholds": { "C": 5, "A.kpi_table": 1 }
+}

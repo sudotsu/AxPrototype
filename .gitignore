@@ -1,0 +1,76 @@
+# AxProtocol .gitignore
+
+# Force-ignore any accidental secrets
+*.pem
+*.key
+*.crt
+secrets.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+*.csv
+session_*.md
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Backups
+backups/
+*.backup
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ledger (keep structure, ignore data)
+implementations/*/logs/ledger/*.db
+implementations/*/logs/sessions/
+
+# War Room specific
+implementations/war-room-v0.1b/logs/
+implementations/war-room-v0.1b/backups/
+implementations/war-room-v0.1b/.venv/
+
+# Build artifacts
+builds-updates-deprecateds/
+retired-originals/
+Media/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

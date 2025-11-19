@@ -1,0 +1,17 @@
+{
+  "write_governance_to_ledger": true,
+  "signals": {
+    "D3": {"mode": "hard", "iv_max": 0.68, "ird_min": 0.55},
+    "D2": {"mode": "hard", "iv_max": 0.64, "ird_min": 0.60},
+    "D13": {"mode": "hard", "iv_max": 0.62, "ird_min": 0.65},
+    "D7": {"mode": "hard", "iv_max": 0.64, "ird_min": 0.60},
+    "D11": {"mode": "hard", "iv_max": 0.64, "ird_min": 0.60},
+    "D20-24": {"mode": "hard", "iv_max": 0.66, "ird_min": 0.58},
+
+    "D0": {"mode": "soft", "iv_max": 0.60, "ird_min": 0.70},
+    "SECRETS": {"mode": "soft", "iv_max": 0.60, "ird_min": 0.70},
+    "FABRICATION": {"mode": "soft", "iv_max": 0.64, "ird_min": 0.62},
+    "DOMAIN_MISROUTING": {"mode": "soft", "iv_max": 0.64, "ird_min": 0.60},
+    "OBSERVABILITY_GAP": {"mode": "soft", "iv_max": 0.64, "ird_min": 0.60}
+  }
+}

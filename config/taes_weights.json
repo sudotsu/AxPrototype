@@ -1,0 +1,17 @@
+{
+  "default": {"logical": 0.4, "practical": 0.4, "probable": 0.2},
+  "code": {"logical": 0.6, "practical": 0.35, "probable": 0.05},
+  "infrastructure": {"logical": 0.6, "practical": 0.35, "probable": 0.05},
+  "ops": {"logical": 0.4, "practical": 0.45, "probable": 0.15},
+  "operations": {"logical": 0.4, "practical": 0.45, "probable": 0.15},
+  "process": {"logical": 0.4, "practical": 0.45, "probable": 0.15},
+  "creative": {"logical": 0.35, "practical": 0.25, "probable": 0.4},
+  "content": {"logical": 0.35, "practical": 0.25, "probable": 0.4},
+  "marketing": {"logical": 0.3, "practical": 0.2, "probable": 0.5},
+  "growth": {"logical": 0.3, "practical": 0.2, "probable": 0.5},
+  "strategy": {"logical": 0.45, "practical": 0.35, "probable": 0.2},
+  "education": {"logical": 0.45, "practical": 0.35, "probable": 0.2},
+  "product": {"logical": 0.45, "practical": 0.35, "probable": 0.2},
+  "research": {"logical": 0.45, "practical": 0.35, "probable": 0.2},
+  "finance": {"logical": 0.5, "practical": 0.35, "probable": 0.15}
+}

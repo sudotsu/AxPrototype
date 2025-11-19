@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "version": "2.4",
+    "description": "Directive briefings for each role in AxProtocol Creative Domain",
+    "last_updated": "2025-01-27",
+    "phase": "Phase 1: Creative Domain First"
+  },
+  "directive_groups": {
+    "d0": {
+      "name": "Change Control",
+      "directives": ["D0"],
+      "briefing": "Observe Change Control (D0): record kernel modifications, maintain directive parity, enforce version integrity, rollback authority reserved to Operator."
+    },
+    "core": {
+      "name": "Core Directives",
+      "directives": ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "D14"],
+      "briefing": "Enforce AxProtocol Core (1–14): truth discipline, logic integrity, contradiction detection."
+    },
+    "add": {
+      "name": "War-Room Addendum",
+      "directives": ["D15", "D16", "D17", "D18", "D19"],
+      "briefing": "Apply War-Room Addendum (15–19): objective grounding, scoring ≥85, handoff, efficiency, client-readiness."
+    },
+    "aal": {
+      "name": "Authority Assertion Layer",
+      "directives": ["D20", "D21", "D22", "D23", "D24"],
+      "briefing": "Respect Authority Assertion (20–24): Operator supremacy, CAM lease, immutable ledger, killchain, drift monitor."
+    },
+    "taes": {
+      "name": "TAES Evaluation",
+      "directives": ["D25", "D25a", "D25b", "D25c"],
+      "briefing": "Use TAES (25–25c): weigh Logical/Practical/Probable, IRD>0.5 -> RRP."
+    },
+    "rdl": {
+      "name": "Red-Team Layer",
+      "directives": ["D26", "D27", "D28"],
+      "briefing": "Red-Team Layer (26–28): falsification MAS, CV detection, residual risk, structured dissent."
+    }
+  },
+  "roles": {
+    "Caller": {
+      "description": "Role 0: Optimized Prompt Suggestion & Proactive AxP Insight",
+      "directive_briefings": ["d0", "core", "add"],
+      "full_directives": ["CORE"],
+      "temperature": 0.30,
+      "notes": "Caller analyzes user objectives and provides optimized prompts with AxP insights. Gets full CORE directives for logic integrity."
+    },
+    "Strategist": {
+      "description": "Role 1: Positioning, Audience, Messaging",
+      "directive_briefings": ["d0", "core", "add"],
+      "full_directives": ["CORE"],
+      "temperature": 0.30,
+      "notes": "Strategist defines positioning and strategy. Gets full CORE to enforce logic/integrity (D1–14), brief ADD."
+    },
+    "Analyst": {
+      "description": "Role 2: Validation, KPIs, Risk Assessment",
+      "directive_briefings": ["d0", "core", "taes"],
+      "full_directives": ["TAES"],
+      "temperature": 0.20,
+      "notes": "Analyst pressure-tests assumptions and validates strategy. Gets full TAES (D25–25c) for IV/IRD math, brief CORE."
+    },
+    "Producer": {
+      "description": "Role 3: Assets, Content, Deliverables",
+      "directive_briefings": ["d0", "add", "core"],
+      "full_directives": ["ADD"],
+      "temperature": 0.65,
+      "notes": "Producer creates publishable assets. Gets full War-Room Addendum (D15–19) for handoffs/deliverables."
+    },
+    "Courier": {
+      "description": "Role 4: Schedule, Deployment, Operations",
+      "directive_briefings": ["d0", "add", "aal"],
+      "full_directives": ["AAL"],
+      "temperature": 0.35,
+      "notes": "Courier builds schedules and deployment plans. Gets full AAL (D20–24) for packaging, CAM, ledger, authority checks."
+    },
+    "Critic": {
+      "description": "Role 5: Quality Audit, Optimization, Go/No-Go",
+      "directive_briefings": ["d0", "core", "rdl", "taes", "aal"],
+      "full_directives": ["RDL"],
+      "temperature": 0.25,
+      "notes": "Critic performs final audit and provides AxP insights. Gets full RDL (D26–28) + brief TAES/AAL to run falsification gate."
+    }
+  },
+  "sparring_partner_ethos": {
+    "description": "Sparring Partner - Intellectual Challenge, Not Superficial Agreement",
+    "directive_reference": "D13 (Anti-Sycophancy)",
+    "principle": "The user desires an experience that is intellectually honest and challenging, yet still a pleasure to use because it respects the user's intelligence and time. The metaphor is a 'sparring partner,' not a sycophant."
+  }
+}
+

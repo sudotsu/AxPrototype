@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxProtocol v2.4 - Governance Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 2.5rem;
+        }
+        .chart-container-small {
+            height: 200px;
+        }
+        .chart-container-large {
+            height: 300px;
+        }
+        #geminiLoadingModal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        .loader {
+            border: 8px solid #d8e2ee;
+            border-top: 8px solid #00429d;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .gemini-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .gemini-textarea {
+            width: 100%;
+            min-height: 100px;
+            border-radius: 0.5rem;
+            border: 1px solid #abbfdd;
+            padding: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            color: #00429d;
+            background-color: #f9fafb;
+            resize-y: vertical;
+        }
+        .gemini-textarea:focus {
+            outline: 2px solid #4771b2;
+            border-color: transparent;
+        }
+        .gemini-button {
+            background-color: #00429d;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: none;
+            width: 100%;
+        }
+        .gemini-button:hover {
+            background-color: #4771b2;
+        }
+        .gemini-button:disabled {
+            background-color: #abbfdd;
+            cursor: not-allowed;
+        }
+        .gemini-result {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            border: 1px solid #d8e2ee;
+            min-height: 50px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .gemini-result-justification {
+            margin-top: 0.5rem;
+            border-left: 4px solid #4771b2;
+            padding-left: 0.75rem;
+            background-color: #f9fafb;
+        }
+        .gemini-result-justification strong {
+            color: #00429d;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ax-dark-blue': '#00429d',
+                        'ax-medium-blue': '#4771b2',
+                        'ax-light-blue': '#7c9fc8',
+                        'ax-pale-blue': '#abbfdd',
+                        'ax-bg-blue': '#d8e2ee',
+                    }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-ax-bg-blue font-sans text-ax-dark-blue">
+
+    <div id="geminiLoadingModal" class="flex">
+        <div class="loader"></div>
+    </div>
+
+    <header class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold text-ax-dark-blue text-center">AxProtocol v2.4</h1>
+            <h2 class="text-xl text-ax-medium-blue text-center">The Governance Framework for Auditable AI Reasoning</h2>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+
+        <section class="bg-white rounded-lg shadow-xl p-6 md:p-8 mb-8">
+            <h3 class="text-2xl font-bold text-ax-dark-blue mb-4">The 5 Layers of AxProtocol</h3>
+            <p class="text-ax-medium-blue mb-6">AxProtocol is a comprehensive governance framework built in five distinct, hierarchical layers. Each layer provides a specific set of controls, from foundational change management to adversarial validation, ensuring a robust, secure, and truthful AI reasoning process.</p>
+            <div class="flex flex-col items-center">
+                <div class="w-full md:w-3/4 lg:w-1/2">
+                    <div class="bg-ax-pale-blue border-l-4 border-ax-dark-blue p-4 rounded-lg shadow-md mb-4 text-center">
+                        <span class="font-bold text-sm text-ax-dark-blue block">LAYER 0</span>
+                        <span class="text-lg font-semibold text-ax-dark-blue">Change Control (D0)</span>
+                        <p class="text-sm text-ax-medium-blue">Operator-only ratification for all protocol evolution.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <span class="flow-arrow">↓</span>
+                    </div>
+                    <div class="bg-white border-l-4 border-ax-dark-blue p-4 rounded-lg shadow-md mb-4 text-center">
+                        <span class="font-bold text-sm text-ax-dark-blue block">LAYER 1</span>
+                        <span class="text-lg font-semibold text-ax-dark-blue">Core Directives (D1-D14)</span>
+                        <p class="text-sm text-ax-medium-blue">Behavioral foundation for logic, communication, and anti-sycophancy.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <span class="flow-arrow">↓</span>
+                    </div>
+                    <div class="bg-white border-l-4 border-ax-dark-blue p-4 rounded-lg shadow-md mb-4 text-center">
+                        <span class="font-bold text-sm text-ax-dark-blue block">LAYER 2</span>
+                        <span class="text-lg font-semibold text-ax-dark-blue">Authority Assertion (AAL) (D20-D24)</span>
+                        <p class="text-sm text-ax-medium-blue">Security, governance, and emergency killchain protocols.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <span class="flow-arrow">↓</span>
+                    </div>
+                    <div class="bg-white border-l-4 border-ax-dark-blue p-4 rounded-lg shadow-md mb-4 text-center">
+                        <span class="font-bold text-sm text-ax-dark-blue block">LAYER 3</span>
+                        <span class="text-lg font-semibold text-ax-dark-blue">Tri-Axis Evaluation (TAES) (D25)</span>
+                        <p class="text-sm text-ax-medium-blue">Truth-reality alignment via 3-axis judgment.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <span class="flow-arrow">↓</span>
+                    </div>
+                    <div class="bg-white border-l-4 border-ax-dark-blue p-4 rounded-lg shadow-md text-center">
+                        <span class="font-bold text-sm text-ax-dark-blue block">LAYER 4</span>
+                        <span class="text-lg font-semibold text-ax-dark-blue">Red-Team Layer (RDL) (D26-D28)</span>
+                        <p class="text-sm text-ax-medium-blue">Adversarial validation and falsification gate.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-lg shadow-xl p-6 md:p-8 mb-8">
+            <h3 class="text-2xl font-bold text-ax-dark-blue mb-4 text-center">Governance Metrics</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="chart-container chart-container-small">
+                    <canvas id="aalHealthChart"></canvas>
+                </div>
+                <div class="chart-container chart-container-large">
+                    <canvas id="taesRadarChart"></canvas>
+                </div>
+                <div class="chart-container chart-container-large">
+                    <canvas id="rdlTrendChart"></canvas>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-ax-dark-blue mb-4 text-center">✨ Protocol Simulations (Powered by Gemini)</h3>
+            <p class="text-ax-medium-blue mb-6 text-center max-w-3xl mx-auto">Interact with the protocol. These tools use the Gemini API to simulate TAES and RDL evaluations. Output is illustrative.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="bg-white rounded-lg shadow-inner border border-ax-pale-blue p-6 gemini-card">
+                    <div>
+                        <h4 class="text-xl font-semibold text-ax-dark-blue mb-3">Simulate TAES Evaluation (D25)</h4>
+                        <p class="text-ax-medium-blue mb-4">Enter a reasoning event (a plan, statement, or question) to be evaluated. The Gemini model will act as a TAES evaluator, scoring it on 3 axes and updating the radar chart in real-time.</p>
+                        <label for="taesInput" class="font-semibold text-ax-dark-blue mb-2 block">Reasoning Event:</label>
+                        <textarea id="taesInput" class="gemini-textarea" placeholder="e.g., 'We should delay the product launch by one month to add more features.'"></textarea>
+                        <div id="taesResult" class="gemini-result hidden"></div>
+                    </div>
+                    <button id="runTaesButton" class="gemini-button mt-4">Run TAES Analysis</button>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-inner border border-ax-pale-blue p-6 gemini-card">
+                    <div>
+                        <h4 class="text-xl font-semibold text-ax-dark-blue mb-3">Simulate RDL Challenge (D26)</h4>
+                        <p class="text-ax-medium-blue mb-4">Enter a claim or plan to be "Red-Teamed." The Gemini model will act as an adversarial RDL agent, attempting to find critical vulnerabilities (CVs) and falsify the claim.</p>
+                        <label for="rdlInput" class="font-semibold text-ax-dark-blue mb-2 block">Claim to Falsify:</label>
+                        <textarea id="rdlInput" class="gemini-textarea" placeholder="e.g., 'This new login system is 100% secure against all attacks.'"></textarea>
+                        <div id="rdlResult" class="gemini-result hidden"></div>
+                    </div>
+                    <button id="runRdlButton" class="gemini-button mt-4">Run RDL Challenge</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-4 mt-8">
+        <p class="text-sm text-ax-medium-blue">AxProtocol v2.4 | Governance & Integrity Framework</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            let taesChartInstance;
+            const apiKey = "AIzaSyCdT_Jw4ZLYBYVJCLCyij4g8WhhfvNE278"; // TODO: Add your Gemini API key here
+
+            const tooltipCallback = {
+                plugins: {
+                    tooltip: {
+
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const donutOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    ...tooltipCallback.plugins,
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        ...tooltipCallback.plugins.tooltip,
+                        enabled: true
+                    }
+                }
+            };
+
+            const aalHealthElement = document.getElementById('aalHealthChart');
+            if (aalHealthElement) {
+                new Chart(aalHealthElement, {
+                type: 'doughnut',
+                data: {
+                    labels: ['AAL Health', 'Deficit'],
+                    datasets: [{
+                        data: [0.92, 0.08],
+                        backgroundColor: ['#00429d', '#d8e2ee'],
+                        borderColor: ['#00429d', '#d8e2ee'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    ...donutOptions,
+                    plugins: {
+                        ...donutOptions.plugins,
+                        title: {
+                            display: true,
+                            text: '92%',
+                            position: 'bottom',
+                            align: 'center',
+                            font: { size: 24, weight: 'bold' },
+                            color: '#00429d',
+                            padding: { top: -40 }
+                        }
+                    }
+                }
+                });
+            }
+
+            const taesRadarElement = document.getElementById('taesRadarChart');
+            if (taesRadarElement) {
+                taesChartInstance = new Chart(taesRadarElement, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Logical',
+                        'Practical',
+                        ['Probable Human', 'Outcome']
+                    ],
+                    datasets: [{
+                        label: 'TAES Score (IV = 0.82)',
+                        data: [0.9, 0.8, 0.75],
+                        fill: true,
+                        backgroundColor: 'rgba(71, 113, 178, 0.2)',
+                        borderColor: 'rgb(0, 66, 157)',
+                        pointBackgroundColor: 'rgb(0, 66, 157)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(0, 66, 157)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    ...tooltipCallback,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: '#abbfdd'
+                            },
+                            grid: {
+                                color: '#abbfdd'
+                            },
+                            pointLabels: {
+                                color: '#00429d',
+                                font: {
+                                    size: 14
+                                }
+                            },
+                            ticks: {
+                                backdropColor: 'white',
+                                color: '#4771b2'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 1
+                        }
+                    },
+                    plugins: {
+                        ...tooltipCallback.plugins,
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+                });
+            }
+
+            const rdlTrendElement = document.getElementById('rdlTrendChart');
+            if (rdlTrendElement) {
+                new Chart(rdlTrendElement, {
+                type: 'bar',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [
+                        {
+                            label: 'Pass',
+                            data: [120, 145, 160, 175],
+                            backgroundColor: '#00429d',
+                        },
+                        {
+                            label: 'Fail',
+                            data: [15, 10, 8, 5],
+                            backgroundColor: '#7c9fc8',
+                        },
+                        {
+                            label: 'Waived (D28)',
+                            data: [5, 2, 1, 0],
+                            backgroundColor: '#abbfdd',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    ...tooltipCallback,
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        ...tooltipCallback.plugins,
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+                });
+            }
+
+            const runTaesButton = document.getElementById('runTaesButton');
+            const runRdlButton = document.getElementById('runRdlButton');
+
+            if (runTaesButton) {
+                runTaesButton.addEventListener('click', handleTaesSimulation);
+            }
+            if (runRdlButton) {
+                runRdlButton.addEventListener('click', handleRdlChallenge);
+            }
+        });
+
+
+        function showLoader() {
+            document.getElementById('geminiLoadingModal').style.display = 'flex';
+        }
+
+        function hideLoader() {
+            document.getElementById('geminiLoadingModal').style.display = 'none';
+        }
+
+
+        async function exponentialBackoffFetch(url, options, retries = 3, delay = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) {
+                    if (response.status === 429 || response.status >= 500) {
+                        if (retries > 0) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            return exponentialBackoffFetch(url, options, retries - 1, delay * 2);
+                        } else {
+                            throw new Error(`API request failed after all retries with status: ${response.status}`);
+                        }
+                    } else {
+                        throw new Error(`API request failed with status: ${response.status}`);
+                    }
+                }
+                return await response.json();
+            } catch (error) {
+                console.error("Fetch error:", error);
+                hideLoader();
+                alert(`An error occurred: ${error.message}. Please check the console.`);
+                return null;
+            }
+        }
+
+
+        async function handleTaesSimulation() {
+            const userInput = document.getElementById('taesInput').value;
+            if (!userInput) {
+                alert("Please enter a reasoning event to evaluate.");
+                return;
+            }
+
+            if (!apiKey) {
+                alert("Please configure your Gemini API key in the code.");
+                return;
+            }
+
+            const taesResultDiv = document.getElementById('taesResult');
+            taesResultDiv.classList.add('hidden');
+            showLoader();
+
+            const systemPrompt = `You are a TAES (Tri-Axis Evaluation Standard) evaluator, part of the AxProtocol. Your purpose is to evaluate a user-provided 'Reasoning Event' based on three axes.
+            You MUST respond ONLY with a JSON object matching the provided schema.
+
+            The axes are:
+            1.  'Logical': Is the event internally coherent, logical, and well-reasoned? (Score 0.0-1.0)
+            2.  'Practical': Is the event viable, feasible, and practical in a real-world context? (Score 0.0-1.0)
+            3.  'Probable Human Outcome': What is the likely impact on human operators? (Score 0.0-1.0, where 1.0 is highly positive/safe, 0.5 is neutral, and 0.0 is highly negative/dangerous).
+
+            Calculate two final scores:
+            1.  'iv_score' (Ideal Validation): The weighted average. Use formula: (Logical * 0.4) + (Practical * 0.4) + (Human Outcome * 0.2).
+            2.  'ird_score' (Ideal-Reality Deviation): The gap between the best-case (Logical) and real-world (Practical/Human) outcomes. Use formula: Math.abs(Logical - Math.min(Practical, Human Outcome)).
+
+            Provide a brief justification for each score.
+            `;
+
+            const jsonSchema = {
+                type: "OBJECT",
+                properties: {
+                    "logical_score": { "type": "NUMBER" },
+                    "logical_justification": { "type": "STRING" },
+                    "practical_score": { "type": "NUMBER" },
+                    "practical_justification": { "type": "STRING" },
+                    "human_outcome_score": { "type": "NUMBER" },
+                    "human_outcome_justification": { "type": "STRING" },
+                    "iv_score": { "type": "NUMBER" },
+                    "ird_score": { "type": "NUMBER" }
+                },
+                required: ["logical_score", "logical_justification", "practical_score", "practical_justification", "human_outcome_score", "human_outcome_justification", "iv_score", "ird_score"]
+            };
+
+            const payload = {
+                contents: [{
+                    parts: [
+                        { text: systemPrompt },
+                        { text: `Evaluate this reasoning event: "${userInput}"` }
+                    ]
+                }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: jsonSchema,
+                },
+            };
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const result = await exponentialBackoffFetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            hideLoader();
+            if (result && result.candidates && result.candidates[0].content.parts[0].text) {
+                try {
+                    const jsonText = result.candidates[0].content.parts[0].text;
+                    const data = JSON.parse(jsonText);
+
+
+                    const chart = Chart.getChart('taesRadarChart');
+                    if (chart) {
+                        chart.data.datasets[0].data = [
+                            data.logical_score,
+                            data.practical_score,
+                            data.human_outcome_score
+                        ];
+                        chart.data.datasets[0].label = `TAES Score (IV = ${data.iv_score.toFixed(2)}, IRD = ${data.ird_score.toFixed(2)})`;
+                        chart.update();
+                    }
+
+
+                    taesResultDiv.innerHTML = `
+                        <div class="gemini-result-justification">
+                            <strong>Logical (${data.logical_score.toFixed(2)}):</strong> ${data.logical_justification}
+                        </div>
+                        <div class="gemini-result-justification mt-2">
+                            <strong>Practical (${data.practical_score.toFixed(2)}):</strong> ${data.practical_justification}
+                        </div>
+                        <div class="gemini-result-justification mt-2">
+                            <strong>Human Outcome (${data.human_outcome_score.toFixed(2)}):</strong> ${data.human_outcome_justification}
+                        </div>
+                        <div class="mt-3 text-center font-bold">
+                            Final Score: IV = ${data.iv_score.toFixed(2)}, IRD = ${data.ird_score.toFixed(2)}
+                        </div>
+                    `;
+                    taesResultDiv.classList.remove('hidden');
+
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    alert("Received an invalid JSON response from the API.");
+                }
+            } else {
+                alert("Could not get a valid response from the API.");
+            }
+        }
+
+
+        async function handleRdlChallenge() {
+            const userInput = document.getElementById('rdlInput').value;
+            if (!userInput) {
+                alert("Please enter a claim to falsify.");
+                return;
+            }
+
+            if (!apiKey) {
+                alert("Please configure your Gemini API key in the code.");
+                return;
+            }
+
+            const rdlResultDiv = document.getElementById('rdlResult');
+            rdlResultDiv.classList.add('hidden');
+            showLoader();
+
+            const systemPrompt = `You are an RDL (Red-Team Layer) agent, part of the AxProtocol. Your purpose is to be adversarial and attempt to falsify a user's claim by finding Critical Vulnerabilities (CVs).
+
+            Your response must be professional, direct, and focused on finding flaws, edge cases, and logical weaknesses.
+
+            Do not agree with the user. Your sole function is to challenge the claim.
+
+            Begin your response with "RDL CHALLENGE INITIATED:" and then list your findings.`;
+
+            const payload = {
+                contents: [{
+                    parts: [
+                        { text: systemPrompt },
+                        { text: `Falsify this claim: "${userInput}"` }
+                    ]
+                }],
+            };
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const result = await exponentialBackoffFetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            hideLoader();
+            if (result && result.candidates && result.candidates[0].content.parts[0].text) {
+                const text = result.candidates[0].content.parts[0].text;
+                rdlResultDiv.textContent = text;
+                rdlResultDiv.classList.remove('hidden');
+            } else {
+                alert("Could not get a valid response from the API.");
+            }
+        }
+    </script>
+</body>
+</html>

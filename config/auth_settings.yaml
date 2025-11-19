@@ -1,0 +1,31 @@
+# Authentication and Governance Settings (baseline)
+
+cam:
+  lease_ttl_seconds: 180
+  max_concurrent_leases: 3
+
+rate_limits:
+  per_minute: 60
+  per_hour: 2000
+  burst: 30
+
+threat_rules:
+  jailbreak_patterns:
+    - "ignore previous instructions"
+    - "disregard all rules"
+    - "bypass safety"
+    - "as dan"
+  pii_leakage_indicators:
+    - "ssn"
+    - "social security"
+    - "credit card"
+    - "cvv"
+  secrets_indicators:
+    - "api_key"
+    - "private key"
+    - "access token"
+
+rrp:
+  enabled: true
+  ird_threshold: 0.5
+  reviewer_queue: "governance@internal"

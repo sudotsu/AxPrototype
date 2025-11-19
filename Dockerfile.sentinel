@@ -1,0 +1,12 @@
+FROM python:3.11-slim
+
+WORKDIR /audit
+
+RUN pip install --no-cache-dir fastapi uvicorn pynacl
+
+COPY axp/sentinel/sentinel_app.py /audit/sentinel_app.py
+COPY axp/sentinel/verify_ledger.py /audit/verify_ledger.py
+
+EXPOSE 8080
+
+CMD ["uvicorn", "sentinel_app:app", "--host", "0.0.0.0", "--port", "8080"]

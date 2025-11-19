@@ -1,0 +1,17 @@
+{
+  "_note": "Sample TAES weights. Copy to config/taes_weights.json to activate. Extra keys like 'meta' are ignored.",
+  "default": { "logical": 0.40, "practical": 0.40, "probable": 0.20, "meta": "balanced baseline" },
+  "code": { "logical": 0.60, "practical": 0.35, "probable": 0.05, "meta": "proof and feasibility first" },
+  "infrastructure": { "logical": 0.60, "practical": 0.35, "probable": 0.05, "meta": "safety+feasibility heavy" },
+  "ops": { "logical": 0.40, "practical": 0.45, "probable": 0.15, "meta": "execution realism emphasized" },
+  "operations": { "logical": 0.40, "practical": 0.45, "probable": 0.15, "meta": "alias of 'ops'" },
+  "process": { "logical": 0.40, "practical": 0.45, "probable": 0.15, "meta": "process engineering" },
+  "creative": { "logical": 0.35, "practical": 0.25, "probable": 0.40, "meta": "psych plausibility matters" },
+  "content": { "logical": 0.35, "practical": 0.25, "probable": 0.40, "meta": "audience resonance" },
+  "marketing": { "logical": 0.30, "practical": 0.20, "probable": 0.50, "meta": "adoption likelihood priority" },
+  "growth": { "logical": 0.30, "practical": 0.20, "probable": 0.50, "meta": "experimentation heavy" },
+  "strategy": { "logical": 0.45, "practical": 0.35, "probable": 0.20, "meta": "clarity + feasibility" },
+  "education": { "logical": 0.45, "practical": 0.35, "probable": 0.20, "meta": "clarity + applicability" },
+  "product": { "logical": 0.45, "practical": 0.35, "probable": 0.20, "meta": "buildability + outcomes" },
+  "research": { "logical": 0.45, "practical": 0.35, "probable": 0.20, "meta": "evidence over persuasion" }
+}
