@@ -1,12 +1,27 @@
 FROM python:3.11-slim
 
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /audit
 
-RUN pip install --no-cache-dir fastapi uvicorn pynacl
+RUN pip install --no-cache-dir fastapi uvicorn pynacl pandas
 
-COPY axp/sentinel/sentinel_app.py /audit/sentinel_app.py
-COPY axp/sentinel/verify_ledger.py /audit/verify_ledger.py
+# Copy ONLY the sentinel code to ensure isolation logic isn't polluted
+COPY axp/sentinel /audit/axp/sentinel
+COPY axp/utils /audit/axp/utils
+
+# Need score validator logic for verification
+COPY score_validator.py /audit/score_validator.py
+
+# Create non-root user
+RUN useradd -m sentinel && \
+    chown -R sentinel:sentinel /audit
+
+USER sentinel
 
 EXPOSE 8080
 
-CMD ["uvicorn", "sentinel_app:app", "--host", "0.0.0.0", "--port", "8080"]
+# Run from root to allow imports
+ENV PYTHONPATH=/audit
+
+CMD ["uvicorn", "axp.sentinel.sentinel_app:app", "--host", "0.0.0.0", "--port", "8080"]

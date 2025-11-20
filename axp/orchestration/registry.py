@@ -1,14 +1,16 @@
 """
 Registry (blackboard) management for role outputs.
+
 """
 
 
 def init_registry() -> dict:
     """
-    Initialize empty registry for role outputs.
-
-    Returns:
-        Registry dictionary with keys: S, A, P, C, X, Q
+    Initialize empty registry for 3-Role architecture.
     """
-    return {"S": [], "A": [], "P": [], "C": [], "X": [], "Q": []}
+    return {
+        "Caller": [],
+        "Builder": [],
+        "Critic": []
+    }
 

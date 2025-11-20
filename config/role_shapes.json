@@ -1,17 +1,18 @@
 {
   "metadata": {
-    "version": "2.4",
-    "description": "JSON schemas and banned phrases for each role in AxProtocol Creative Domain",
-    "last_updated": "2025-01-27",
-    "phase": "Phase 1: Creative Domain First"
+    "version": "3.0",
+    "description": "JSON schemas for AxPrototype (Creative Domain) - 3-Role Architecture",
+    "last_updated": "2025-11-20",
+    "phase": "Phase 2: AxPrototype Launch"
   },
   "Caller": {
-    "description": "Role 0: Optimized Prompt Suggestion & Proactive AxP Insight",
-    "banned": [],
+    "description": "Role 0: Triage & Optimized Prompt Suggestion",
+    "banned": ["I cannot", "As an AI"],
     "json_schema": {
       "oneOf": [
         {
-          "description": "Trivial Request - Terminate",
+          "description": "Option 1: Trivial Request - Terminate",
+          "type": "object",
           "required": ["status", "response"],
           "properties": {
             "status": { "const": "terminate" },
@@ -19,39 +20,46 @@
           }
         },
         {
-          "description": "Clear Complex Objective - Proceed",
+          "description": "Option 2: Clear Complex Objective - Proceed",
+          "type": "object",
           "required": ["status", "payload"],
           "properties": {
             "status": { "const": "proceed" },
             "payload": {
+              "type": "object",
               "required": ["objective"],
               "properties": { "objective": { "type": "string" } }
             }
           }
         },
         {
-          "description": "Ambiguous - Suggest Optimization",
+          "description": "Option 3: Ambiguous - Suggest Optimized Prompt & Insight",
+          "type": "object",
           "required": ["status", "suggested_objective", "axp_insight", "user_confirmation_question"],
           "properties": {
             "status": { "const": "suggest_optimized_prompt_and_insight" },
             "suggested_objective": { "type": "string" },
             "axp_insight": {
               "type": "object",
-              "required": ["title", "perspectives", "verdict"],
+              "required": ["present", "title", "perspectives", "verdict"],
               "properties": {
+                "present": { "const": true },
                 "title": { "type": "string" },
                 "perspectives": {
                   "type": "array",
                   "items": {
                     "type": "object",
+                    "required": ["name", "description"],
                     "properties": {
                       "name": { "type": "string" },
                       "description": { "type": "string" }
                     }
-                  }
+                  },
+                  "minItems": 3
                 },
                 "verdict": {
                   "type": "object",
+                  "required": ["verdict_name", "reasoning"],
                   "properties": {
                     "verdict_name": { "type": "string" },
                     "reasoning": { "type": "string" }
@@ -65,162 +73,148 @@
       ]
     }
   },
-  "Strategist": {
-    "banned": ["api contract", "ddl", "schedule table", "deployment checklist"],
+  "Builder": {
+    "description": "Role 1: Consolidated Creator (Strategist + Analyst + Producer + Courier)",
+    "banned": ["I hope this helps", "Let me know if", "As an AI language model"],
     "json_schema": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "s_id": {"type": "string"},
-          "title": {"type": "string"},
-          "audience": {"type": "string"},
-          "hooks": {"type": "array", "items": {"type": "string"}},
-          "three_step_plan": {"type": "array", "items": {"type": "string"}},
-          "acceptance_tests": {"type": "array", "items": {"type": "string"}}
-        },
-        "required": ["s_id", "title", "audience", "hooks", "three_step_plan", "acceptance_tests"]
-      }
-    }
-  },
-  "Analyst": {
-    "banned": ["deployment checklist", "schedule", "publish-ready assets"],
-    "json_schema": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "a_id": {"type": "string"},
-          "s_refs": {"type": "array", "items": {"type": "string"}},
-          "kpi_table": {"type": "array"},
-          "falsifications": {"type": "array"},
-          "risks": {"type": "array"}
-        },
-        "required": ["a_id", "s_refs", "kpi_table", "falsifications", "risks"]
-      }
-    }
-  },
-  "Producer": {
-    "banned": ["deployment checklist", "architecture rationale", "schedule", "audit"],
-    "json_schema": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "p_id": {"type": "string"},
-          "a_refs": {"type": "array", "items": {"type": "string"}},
-          "spec_type": {"type": "string"},
-          "body": {"type": "string"}
-        },
-        "required": ["p_id", "a_refs", "spec_type", "body"]
-      }
-    }
-  },
-  "Courier": {
-    "banned": ["deployment checklist", "architecture rationale", "api", "ddl", "audit"],
-    "json_schema": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "day": {"type": "string"},
-          "time": {"type": "string"},
-          "channel": {"type": "string"},
-          "p_id": {"type": "string"},
-          "kpi_target": {"type": "string"},
-          "owner_action": {"type": "string"}
-        },
-        "required": ["day", "time", "channel", "p_id", "kpi_target", "owner_action"]
+      "type": "object",
+      "required": ["builder_output"],
+      "properties": {
+        "builder_output": {
+          "type": "object",
+          "required": ["artifact", "self_notes"],
+          "properties": {
+            "artifact": {
+              "type": "object",
+              "required": ["strategy_brief", "content_assets", "delivery_plan"],
+              "properties": {
+                "strategy_brief": {
+                  "type": "object",
+                  "required": ["creative_concept", "target_audience", "brand_voice", "key_messaging_pillars"],
+                  "properties": {
+                    "creative_concept": { "type": "string" },
+                    "target_audience": { "type": "string" },
+                    "brand_voice": { "type": "string" },
+                    "key_messaging_pillars": { "type": "array", "items": { "type": "string" } }
+                  }
+                },
+                "content_assets": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["title", "format", "headline_variations", "body", "visual_cues"],
+                    "properties": {
+                      "title": { "type": "string" },
+                      "format": { "type": "string" },
+                      "headline_variations": { "type": "array", "items": { "type": "string" } },
+                      "body": { "type": "string" },
+                      "visual_cues": { "type": "string" }
+                    }
+                  }
+                },
+                "delivery_plan": {
+                  "type": "object",
+                  "required": ["recommended_channels", "timing_strategy", "success_metrics"],
+                  "properties": {
+                    "recommended_channels": { "type": "array", "items": { "type": "string" } },
+                    "timing_strategy": { "type": "string" },
+                    "success_metrics": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              }
+            },
+            "self_notes": {
+              "description": "Internal context for the Critic. Not shown to user.",
+              "type": "object",
+              "required": ["strategic_rationale", "assumptions_made", "uncertainties", "analyst_check"],
+              "properties": {
+                "strategic_rationale": { "type": "string" },
+                "assumptions_made": { "type": "array", "items": { "type": "string" } },
+                "uncertainties": { "type": "array", "items": { "type": "string" } },
+                "analyst_check": { "type": "string" }
+              }
+            }
+          }
+        }
       }
     }
   },
   "Critic": {
-    "banned": ["deployment checklist", "schedule", "copy block", "testimonials", "calls to action"],
+    "description": "Role 2: Editorial Gatekeeper & Red Team",
+    "banned": ["Great job", "Nice work", "As an AI", "I think"],
     "json_schema": {
       "type": "object",
+      "required": ["critic_output"],
       "properties": {
         "critic_output": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "x_id": {"type": "string"},
-              "refs": {"type": "array", "items": {"type": "string"}},
-              "issue": {"type": "string"},
-              "fix": {"type": "string"},
-              "severity": {"type": "string"},
-              "proof_scores": {"type": "object"}
-            },
-            "required": ["x_id", "refs", "issue", "fix", "severity", "proof_scores"]
-          }
-        },
-        "axp_insight": {
           "type": "object",
+          "required": ["verdict", "scores", "critique", "revision_instructions", "axp_insight", "afterthought_on_user_input"],
           "properties": {
-            "title": {
-              "type": "string",
-              "description": "Title of the insight (e.g., 'Analysis of Output & Iteration Guidance')"
-            },
-            "perspectives": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "label": {
-                    "type": "string",
-                    "enum": ["Logical", "Practical", "Probable Human Outcome", "Fringe/Challenging"]
-                  },
-                  "content": {
-                    "type": "string",
-                    "description": "Perspective on the output itself, its implications, or potential improvements"
-                  }
-                },
-                "required": ["label", "content"]
-              },
-              "minItems": 3,
-              "maxItems": 4,
-              "description": "3-4 distinct takes on the output"
-            },
             "verdict": {
               "type": "string",
-              "description": "AxProtocol's Strongest Take with reasoning based on testability, applicability, and alignment with directives"
-            }
-          },
-          "required": ["title", "perspectives", "verdict"]
-        },
-        "afterthought_on_user_input": {
-          "type": "object",
-          "properties": {
-            "present": {
-              "type": "boolean",
-              "description": "true ONLY IF user_rejection = True (user explicitly rejected Caller's optimized prompt)"
+              "enum": ["APPROVE", "REVISE"]
             },
-            "message": {
-              "type": "string",
-              "description": "If present=true: addresses user's rejection, diagnostic of output's misalignment with original intent, and guidance for future inputs. If present=false: empty string."
+            "scores": {
+              "type": "object",
+              "required": ["logical", "practical", "probable"],
+              "properties": {
+                "logical": { "type": "number", "minimum": 0, "maximum": 1 },
+                "practical": { "type": "number", "minimum": 0, "maximum": 1 },
+                "probable": { "type": "number", "minimum": 0, "maximum": 1 }
+              }
+            },
+            "critique": {
+              "type": "object",
+              "required": ["strengths", "weaknesses", "critical_risks"],
+              "properties": {
+                "strengths": { "type": "array", "items": { "type": "string" } },
+                "weaknesses": { "type": "array", "items": { "type": "string" } },
+                "critical_risks": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "revision_instructions": {
+              "type": "array",
+              "description": "Specific instructions for the Builder if verdict is REVISE. Empty if APPROVE.",
+              "items": { "type": "string" }
+            },
+            "axp_insight": {
+              "type": "object",
+              "required": ["present", "title", "perspectives", "verdict"],
+              "properties": {
+                "present": { "const": true },
+                "title": { "type": "string" },
+                "perspectives": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["name", "description"],
+                    "properties": {
+                      "name": { "type": "string" },
+                      "description": { "type": "string" }
+                    }
+                  }
+                },
+                "verdict": {
+                  "type": "object",
+                  "required": ["verdict_name", "reasoning"],
+                  "properties": {
+                    "verdict_name": { "type": "string" },
+                    "reasoning": { "type": "string" }
+                  }
+                }
+              }
+            },
+            "afterthought_on_user_input": {
+              "type": "object",
+              "required": ["present", "message"],
+              "properties": {
+                "present": { "type": "boolean" },
+                "message": { "type": "string" }
+              }
             }
-          },
-          "required": ["present", "message"]
-        },
-        "ratings": {
-          "type": "object",
-          "properties": {
-            "compliance": {"type": "number", "minimum": 0, "maximum": 100},
-            "clarity": {"type": "number", "minimum": 0, "maximum": 100},
-            "proof": {"type": "number", "minimum": 0, "maximum": 100},
-            "cta_power": {"type": "number", "minimum": 0, "maximum": 100},
-            "local_tone": {"type": "number", "minimum": 0, "maximum": 100},
-            "average": {"type": "number", "minimum": 0, "maximum": 100}
-          },
-          "required": ["compliance", "clarity", "proof", "cta_power", "local_tone", "average"]
-        },
-        "readiness_assessment": {
-          "type": "string",
-          "enum": ["go", "no_go", "revise"],
-          "description": "Final go/no-go/revise decision"
+          }
         }
-      },
-      "required": ["critic_output", "axp_insight", "afterthought_on_user_input", "ratings", "readiness_assessment"]
+      }
     }
   }
 }

@@ -1,28 +1,14 @@
-# Include configuration files
 include config/*.json
 include config/*.yaml
-include config/**/*.md
-recursive-include protocol *.md
-recursive-include roles *.txt
-
-# Include documentation
+include roles/creative/*.txt
 include README.md
 include LICENSE
-include *.md
 
-# Include example files
-include env.example
-include DomainConfig.json
+exclude domain_detector.py
+recursive-exclude axp/roles/marketing *
+recursive-exclude axp/roles/technical *
+# ... (exclude other legacy domains)
 
-# Exclude development files
 global-exclude __pycache__
 global-exclude *.py[cod]
-global-exclude *.so
-global-exclude .DS_Store
-global-exclude *.log
-recursive-exclude logs *
-recursive-exclude .git *
-recursive-exclude .venv *
-recursive-exclude venv *
-recursive-exclude node_modules *
 
